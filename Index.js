@@ -1,8 +1,10 @@
 console.log("Hello, World!");
-var inquirer = require("inquirer");
-var Manager = require("./lib/Manager.js");
-var Engineer = require("./lib/Engineer.js");
-var Intern = require("./lib/Intern.js");
+const inquirer = require("inquirer");
+const fs = require('fs');
+const Manager = require("./lib/Manager.js");
+const Engineer = require("./lib/Engineer.js");
+const Intern = require("./lib/Intern.js");
+const generateHTML = require("./src/generate-html.js");
 const employees = [];
 inquirer
     .prompt([
@@ -51,8 +53,10 @@ addEmployees = function (){
         .then(answers => {
             if(answers.action === "finish"){
                 /*do something here*/
-                console.log("Employees:");
                 console.log(employees);
+                fs.writeFile('./dist/index.html', generateHTML(employees), err => {
+                    if (err) throw err;
+                });
             } else {
                 inquirer.prompt([
                     {
@@ -106,11 +110,7 @@ addEmployees = function (){
     queryToAdd();
 }
 
-askInternQuestion = function (){
-
-}
 
 
-askENGQuestion = function(){
 
-}
+
