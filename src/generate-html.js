@@ -1,4 +1,7 @@
+
+//assemble the majority of html here
 generateHTML = function (employeesList) {
+    //put together the user-specified parts of the html
     const employeesString = assembleEmployeesString(employeesList);
     return `
 <!doctype html>
@@ -42,6 +45,7 @@ generateHTML = function (employeesList) {
   `;
 }
 
+//builds the main user-specified stuff as a string from the employees list (from Index.js)
 assembleEmployeesString = function (employeesList) {
     let employeesString = "";
     employeesList.forEach( element => {

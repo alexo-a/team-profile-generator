@@ -1,4 +1,3 @@
-console.log("Hello, World!");
 const inquirer = require("inquirer");
 const fs = require('fs');
 const Manager = require("./lib/Manager.js");
@@ -6,6 +5,7 @@ const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 const generateHTML = require("./src/generate-html.js");
 const employees = [];
+//ask questions about the manager
 inquirer
     .prompt([
         {
@@ -30,7 +30,6 @@ inquirer
         }
     ])
     .then(managerAnswers => {
-        console.log(managerAnswers);
         employees.push(new Manager(managerAnswers.managerName, managerAnswers.managerID, managerAnswers.managerEmail, managerAnswers.managerOfficeNumber));
         addEmployees();
     })
@@ -38,7 +37,7 @@ inquirer
         if(error.isTtyError) {} 
         else {}
     });
-
+//call this after entering the manager
 addEmployees = function (){
     const queryToAdd = () => {
         inquirer.prompt([{
@@ -52,12 +51,12 @@ addEmployees = function (){
         }])
         .then(answers => {
             if(answers.action === "finish"){
-                /*do something here*/
-                console.log(employees);
+                //save new html file
                 fs.writeFile('./dist/index.html', generateHTML(employees), err => {
                     if (err) throw err;
                 });
             } else {
+                //user wants to add another employee
                 inquirer.prompt([
                     {
                         type: "input",
